@@ -28,7 +28,7 @@ This script (`video_notes.sh`) takes a video file, extracts its audio, transcrib
 ### 1. Clone & Run
 
 ```bash
-git clone https://github.com/your-username/video-notes.git
+git clone https://github.com/jimmyjohn23/video-notes.git
 cd video-notes
 chmod +x video_notes.sh
 ./video_notes.sh your_video.mp4
