@@ -76,9 +76,42 @@ if [ ! -f "$TRANSCRIPT" ]; then
     exit 1
 fi
 echo "Generating summary using Ollama..."
-SUMMARY_TEXT=$(ollama run phi3 "You are a helpful assistant. Summarize the following transcript into concise, well-structured markdown:
+MODEL="gemma:instruct"  # or mistral
+PROMPT=$(cat <<EOF
+You are a statistics teaching assistant. Your task is to summarize a lecture transcript into structured, clear markdown notes for a student.
 
-$(cat "$TRANSCRIPT")")
+Follow this format:
+
+# 📘 Lecture Title: (Infer a short title)
+
+## ✨ Summary
+Write a 2–3 sentence overview of the lecture content.
+
+## 📊 Key Concepts
+- List and briefly explain the main statistical ideas (e.g., p-values, confidence intervals, central limit theorem).
+
+## 🧮 Formulas Mentioned
+- Format any mathematical expressions in Markdown (use LaTeX-style where needed, e.g., \$P(A \\cap B) = P(A)P(B)\$).
+
+## 📈 Examples or Applications
+- Summarize any use cases or real-world problems the lecture addressed.
+
+## 📝 Definitions
+- List terms and definitions introduced.
+
+## ❓ Instructor’s Emphasis
+- Note down any concepts the speaker emphasized, repeated, or highlighted as important for exams or practice.
+
+## 🧠 Reflection / Takeaways
+- One or two thoughtful takeaways a student should remember.
+
+Transcript:
+$(cat "$TRANSCRIPT")
+EOF
+)
+
+SUMMARY_TEXT=$(ollama run "$MODEL" "$PROMPT")
+
 
 
 echo "$SUMMARY_TEXT" > "$SUMMARY"
