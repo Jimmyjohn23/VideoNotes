@@ -116,3 +116,7 @@ SUMMARY_TEXT=$(ollama run "$MODEL" "$PROMPT")
 
 echo "$SUMMARY_TEXT" > "$SUMMARY"
 echo "Summary generated and saved to $SUMMARY"
+
+# Cleanup
+echo "Cleaning up temporary files..."
+rm -f "$AUDIO" "$TRANSCRIPT"
