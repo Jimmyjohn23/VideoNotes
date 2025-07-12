@@ -76,7 +76,7 @@ if [ ! -f "$TRANSCRIPT" ]; then
     exit 1
 fi
 echo "Generating summary using Ollama..."
-MODEL="gemma:instruct"  # or mistral
+MODEL="qwen3:8b"  # or mistral
 PROMPT=$(cat <<EOF
 You are a statistics teaching assistant. Your task is to summarize a lecture transcript into structured, clear markdown notes for a student.
 
